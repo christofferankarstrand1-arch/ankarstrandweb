@@ -144,9 +144,9 @@
   .lang-toggle {
     display: flex;
     align-items: center;
-    background: hsl(var(--background) / 0.9);
+    background: hsl(var(--background) / 0.95);
     backdrop-filter: blur(20px);
-    border: 1px solid hsl(var(--border));
+    border: 2px solid hsl(var(--border));
     border-radius: 12px;
     padding: 0.75rem 1.25rem;
     box-shadow: 0 4px 20px hsl(var(--foreground) / 0.1);
@@ -160,7 +160,7 @@
     font-size: 0.875rem;
     font-weight: 600;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
     padding: 0.25rem 0.5rem;
     border-radius: 6px;
   }
@@ -175,29 +175,55 @@
     background: hsl(var(--muted) / 0.5);
   }
 
-  .theme-toggle {
-    background: hsl(var(--background) / 0.9);
+  /* HIGHLY VISIBLE THEME TOGGLE */
+  .theme-toggle-button {
+    background: hsl(var(--background) / 0.95);
     backdrop-filter: blur(20px);
     transition: all 0.3s ease;
-    box-shadow: 0 4px 20px hsl(var(--foreground) / 0.1);
+    box-shadow: 0 4px 20px hsl(var(--foreground) / 0.15);
+    position: relative;
   }
 
-  .theme-toggle:hover {
+  .theme-toggle-button:hover {
     background: hsl(var(--background));
-    transform: scale(1.05);
-    box-shadow: 0 6px 25px hsl(var(--foreground) / 0.15);
+    transform: scale(1.1);
+    box-shadow: 0 6px 30px hsl(var(--foreground) / 0.2);
+    border-color: hsl(var(--primary) / 0.8) !important;
+  }
+
+  .theme-toggle-button:active {
+    transform: scale(0.95);
+  }
+
+  /* Add a subtle pulse animation to make it more noticeable */
+  .theme-toggle-button::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, hsl(var(--primary) / 0.3), hsl(var(--primary) / 0.1));
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .theme-toggle-button:hover::before {
+    opacity: 1;
   }
 
   .nav-minimal {
     position: fixed;
-    top: 5rem;
+    top: 5.5rem;
     right: 2rem;
-    z-index: 50;
+    z-index: 40;
     display: flex;
     gap: 2rem;
-    background: hsl(var(--background) / 0.9);
+    background: hsl(var(--background) / 0.95);
     backdrop-filter: blur(20px);
-    border: 1px solid hsl(var(--border));
+    border: 2px solid hsl(var(--border));
     border-radius: 16px;
     padding: 1.25rem 2.5rem;
     box-shadow: 0 4px 20px hsl(var(--foreground) / 0.1);
@@ -241,7 +267,7 @@
 
   @media (max-width: 768px) {
     .nav-minimal {
-      top: 4rem;
+      top: 4.5rem;
       right: 1rem;
       padding: 1rem 1.5rem;
       gap: 1.5rem;
@@ -250,6 +276,11 @@
     .nav-link {
       font-size: 0.75rem;
       padding: 0.25rem 0.5rem;
+    }
+
+    .theme-toggle-button {
+      width: 48px;
+      height: 48px;
     }
   }
 
@@ -371,10 +402,6 @@
   }
 
   /* Enhanced light theme contrast */
-  [data-theme="light"] {
-    /* Make sure everything is crisp white */
-  }
-
   [data-theme="light"] body {
     background: hsl(0 0% 100%);
   }
@@ -386,7 +413,7 @@
   /* Light theme navigation */
   [data-theme="light"] .nav-minimal,
   [data-theme="light"] .lang-toggle,
-  [data-theme="light"] .theme-toggle {
+  [data-theme="light"] .theme-toggle-button {
     background: hsl(0 0% 100% / 0.95);
     border-color: hsl(0 0% 85%);
     box-shadow: 0 4px 20px hsl(0 0% 0% / 0.1);
@@ -394,9 +421,16 @@
 
   [data-theme="light"] .nav-minimal:hover,
   [data-theme="light"] .lang-toggle:hover,
-  [data-theme="light"] .theme-toggle:hover {
+  [data-theme="light"] .theme-toggle-button:hover {
     background: hsl(0 0% 100%);
     box-shadow: 0 6px 25px hsl(0 0% 0% / 0.15);
+  }
+
+  /* Make sure theme toggle is always visible */
+  .theme-toggle-button {
+    min-width: 48px;
+    min-height: 48px;
+    z-index: 60;
   }
 }
 
