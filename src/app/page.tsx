@@ -184,9 +184,8 @@ function Navigation({ language, setLanguage, theme, setTheme }: {
 
   return (
     <>
-      {/* Language and theme toggles */}
-      <div className="fixed top-6 left-6 z-50 flex items-center space-x-4">
-        {/* Language toggle */}
+      {/* Language toggle - top left */}
+      <div className="fixed top-6 left-6 z-50">
         <div className="lang-toggle">
           <button
             onClick={() => setLanguage('en')}
@@ -202,22 +201,24 @@ function Navigation({ language, setLanguage, theme, setTheme }: {
             SV
           </button>
         </div>
+      </div>
 
-        {/* Theme toggle */}
+      {/* Theme toggle - top right, separate from navigation */}
+      <div className="fixed top-6 right-6 z-50">
         <button
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          className="theme-toggle p-2 rounded-full border border-primary/20 hover:border-primary/40 transition-colors duration-300"
+          className="theme-toggle p-3 rounded-full border border-primary/20 hover:border-primary/40 transition-all duration-300 bg-background/80 backdrop-blur-sm"
           aria-label="Toggle theme"
         >
           {theme === 'dark' ? (
-            <Sun className="w-4 h-4 text-primary" />
+            <Sun className="w-5 h-5 text-primary" />
           ) : (
-            <Moon className="w-4 h-4 text-primary" />
+            <Moon className="w-5 h-5 text-primary" />
           )}
         </button>
       </div>
 
-      {/* Main navigation */}
+      {/* Main navigation - below theme toggle */}
       <nav className="nav-minimal">
         <a href="#projects" className="nav-link">{t.nav.projects}</a>
         <a href="#about" className="nav-link">{t.nav.about}</a>
@@ -305,7 +306,7 @@ export default function Home() {
   }))
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground transition-all duration-500">
       <CustomCursor />
       <Navigation 
         language={language} 
