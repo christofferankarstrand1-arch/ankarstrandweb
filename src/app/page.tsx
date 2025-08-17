@@ -2,7 +2,143 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Sun, Moon } from 'lucide-react'
+
+// Language content
+const content = {
+  en: {
+    nav: {
+      projects: 'Projects',
+      about: 'About',
+      contact: 'Contact'
+    },
+    hero: {
+      subtitle: "Here's where I publish ideas, examples, thoughts, and projects or collabs I've done. I make stuff all the time but usually forget to show people — this site is me trying to fix that.",
+      exploreWork: 'Explore Work'
+    },
+    projects: {
+      title: 'If I was',
+      subtitle: 'Conceptual projects and real-world initiatives that showcase creative thinking and strategic execution.',
+      items: [
+        {
+          id: 'agency',
+          title: 'Marketing Agency',
+          concept: 'Reinventing brand narratives through AI and creativity.',
+          focus: 'Authentic storytelling over traditional advertising.'
+        },
+        {
+          id: 'influencer',
+          title: 'Influencer',
+          concept: 'Beyond filters – authentic connection and positive change.',
+          focus: 'Education, inspiration, and responsible influence.'
+        },
+        {
+          id: 'football',
+          title: 'Football Agent',
+          concept: 'Holistic player development beyond contracts.',
+          focus: 'Mental well-being and long-term career sustainability.'
+        },
+        {
+          id: 'guldklockan',
+          title: '50 years old, new to AI and looking for jobs',
+          concept: 'Turning experience into opportunity with AI tools and strategies.',
+          focus: 'Challenging ageism and discovering new possibilities in the digital age.',
+          expandedTitle: 'Guldklockan 2.0 📖',
+          expandedConcept: 'Guldklockan 2.0 is the first Swedish guide that helps you who are over 50 take control of your future with the help of AI. Whether you want to write, create digital products, start a platform or use AI as your personal assistant – here you get practical step-by-step instructions, smart strategies and concrete tools that work in reality.',
+          expandedFocus: 'This book is written in Swedish, with a focus on clarity and simplicity, without complicated technical jargon. With examples and exercises adapted for you who want to develop at your own pace and on your own terms. Guldklockan 2.0 shows that it is never too late to start something new. AI is not just for experts – it is the tool that can free your experience and make you stronger in a digital age. 👉 Read more and download the book on Gumroad'
+        },
+        {
+          id: 'probono',
+          title: 'ProBonoBuddy',
+          concept: 'Platform connecting professionals with non-profits.',
+          focus: 'Leveraging expertise for social impact.'
+        }
+      ]
+    },
+    about: {
+      title: 'About',
+      text1: "I think of stuff, and since I've been learning AI technology I've also started to build stuff!",
+      text2: 'Sometimes full projects, sometimes more of a presentation of an idea.',
+      skills: ['Strategy', 'Creativity', 'Technology']
+    },
+    contact: {
+      title: "Let's Connect",
+      subtitle: "Get in touch if you'd like to collaborate or just say hi.",
+      email: 'Email',
+      linkedin: 'LinkedIn',
+      github: 'GitHub'
+    },
+    footer: {
+      copyright: '© 2024 Christoffer Ankarstrand'
+    }
+  },
+  sv: {
+    nav: {
+      projects: 'Projekt',
+      about: 'Om mig',
+      contact: 'Kontakt'
+    },
+    hero: {
+      subtitle: 'Här publicerar jag idéer, exempel, tankar och projekt eller samarbeten jag gjort. Jag skapar grejer hela tiden men glömmer oftast att visa folk — den här sajten är mitt försök att fixa det.',
+      exploreWork: 'Utforska Arbete'
+    },
+    projects: {
+      title: 'Om jag var',
+      subtitle: 'Konceptuella projekt och verkliga initiativ som visar kreativt tänkande och strategisk genomförande.',
+      items: [
+        {
+          id: 'agency',
+          title: 'Marknadsföringsbyrå',
+          concept: 'Återuppfinner varumärkesberättelser genom AI och kreativitet.',
+          focus: 'Autentiskt berättande över traditionell reklam.'
+        },
+        {
+          id: 'influencer',
+          title: 'Influencer',
+          concept: 'Bortom filter – autentisk koppling och positiv förändring.',
+          focus: 'Utbildning, inspiration och ansvarsfull påverkan.'
+        },
+        {
+          id: 'football',
+          title: 'Fotbollsagent',
+          concept: 'Holistisk spelarutveckling bortom kontrakt.',
+          focus: 'Mentalt välbefinnande och långsiktig karriärhållbarhet.'
+        },
+        {
+          id: 'guldklockan',
+          title: '50 år gammal, ny med AI och söker jobb',
+          concept: 'Förvandla erfarenhet till möjlighet med AI-verktyg och strategier.',
+          focus: 'Utmana åldersdiskriminering och upptäcka nya möjligheter i den digitala tidsåldern.',
+          expandedTitle: 'Guldklockan 2.0 📖',
+          expandedConcept: 'Guldklockan 2.0 är den första svenska guiden som hjälper dig som är över 50 att ta kontroll över din framtid med hjälp av AI. Oavsett om du vill skriva, skapa digitala produkter, starta en plattform eller använda AI som din personliga assistent – här får du praktiska steg för steg-instruktioner, smarta strategier och konkreta verktyg som fungerar i verkligheten.',
+          expandedFocus: 'Den här boken är skriven på svenska, med fokus på tydlighet och enkelhet, utan krånglig teknisk jargong. Med exempel och övningar anpassade för dig som vill utvecklas i din egen takt och på dina villkor. Guldklockan 2.0 visar att det aldrig är för sent att börja något nytt. AI är inte bara för experter – det är verktyget som kan frigöra din erfarenhet och göra dig starkare i en digital tidsålder. 👉 Läs mer och ladda ner boken på Gumroad'
+        },
+        {
+          id: 'probono',
+          title: 'ProBonoBuddy',
+          concept: 'Plattform som kopplar samman yrkesverksamma med ideella organisationer.',
+          focus: 'Utnyttja expertis för social påverkan.'
+        }
+      ]
+    },
+    about: {
+      title: 'Om mig',
+      text1: 'Jag tänker på grejer, och sedan jag börjat lära mig AI-teknik har jag också börjat bygga grejer!',
+      text2: 'Ibland fullständiga projekt, ibland mer av en presentation av en idé.',
+      skills: ['Strategi', 'Kreativitet', 'Teknik']
+    },
+    contact: {
+      title: 'Låt oss koppla upp',
+      subtitle: 'Hör av dig om du vill samarbeta eller bara säga hej.',
+      email: 'E-post',
+      linkedin: 'LinkedIn',
+      github: 'GitHub'
+    },
+    footer: {
+      copyright: '© 2024 Christoffer Ankarstrand'
+    }
+  }
+}
 
 // Custom cursor component
 function CustomCursor() {
@@ -38,33 +174,54 @@ function CustomCursor() {
 }
 
 // Navigation component
-function Navigation() {
-  const [language, setLanguage] = useState('EN')
+function Navigation({ language, setLanguage, theme, setTheme }: {
+  language: 'en' | 'sv'
+  setLanguage: (lang: 'en' | 'sv') => void
+  theme: 'dark' | 'light'
+  setTheme: (theme: 'dark' | 'light') => void
+}) {
+  const t = content[language]
 
   return (
     <>
-      {/* Language toggle */}
-      <div className="lang-toggle">
+      {/* Language and theme toggles */}
+      <div className="fixed top-6 left-6 z-50 flex items-center space-x-4">
+        {/* Language toggle */}
+        <div className="lang-toggle">
+          <button
+            onClick={() => setLanguage('en')}
+            className={language === 'en' ? 'active' : ''}
+          >
+            EN
+          </button>
+          <span className="mx-1 text-muted-foreground">/</span>
+          <button
+            onClick={() => setLanguage('sv')}
+            className={language === 'sv' ? 'active' : ''}
+          >
+            SV
+          </button>
+        </div>
+
+        {/* Theme toggle */}
         <button
-          onClick={() => setLanguage('EN')}
-          className={language === 'EN' ? 'active' : ''}
+          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          className="theme-toggle p-2 rounded-full border border-primary/20 hover:border-primary/40 transition-colors duration-300"
+          aria-label="Toggle theme"
         >
-          EN
-        </button>
-        <span className="mx-1 text-muted-foreground">/</span>
-        <button
-          onClick={() => setLanguage('SV')}
-          className={language === 'SV' ? 'active' : ''}
-        >
-          SV
+          {theme === 'dark' ? (
+            <Sun className="w-4 h-4 text-primary" />
+          ) : (
+            <Moon className="w-4 h-4 text-primary" />
+          )}
         </button>
       </div>
 
       {/* Main navigation */}
       <nav className="nav-minimal">
-        <a href="#projects" className="nav-link">Projects</a>
-        <a href="#about" className="nav-link">About</a>
-        <a href="#contact" className="nav-link">Contact</a>
+        <a href="#projects" className="nav-link">{t.nav.projects}</a>
+        <a href="#about" className="nav-link">{t.nav.about}</a>
+        <a href="#contact" className="nav-link">{t.nav.contact}</a>
       </nav>
     </>
   )
@@ -77,48 +234,17 @@ interface Project {
   concept: string
   focus: string
   className: string
+  expandedTitle?: string
+  expandedConcept?: string
+  expandedFocus?: string
 }
 
-const projects: Project[] = [
-  {
-    id: 'agency',
-    title: 'Marketing Agency',
-    concept: 'Reinventing brand narratives through AI and creativity.',
-    focus: 'Authentic storytelling over traditional advertising.',
-    className: 'project-agency'
-  },
-  {
-    id: 'influencer',
-    title: 'Influencer',
-    concept: 'Beyond filters – authentic connection and positive change.',
-    focus: 'Education, inspiration, and responsible influence.',
-    className: 'project-influencer'
-  },
-  {
-    id: 'football',
-    title: 'Football Agent',
-    concept: 'Holistic player development beyond contracts.',
-    focus: 'Mental well-being and long-term career sustainability.',
-    className: 'project-football'
-  },
-  {
-    id: 'guldklockan',
-    title: '50 years old, new to AI and looking for jobs',
-    concept: 'Turning experience into opportunity with AI tools and strategies.',
-    focus: 'Challenging ageism and discovering new possibilities in the digital age.',
-    className: 'project-unemployed'
-  },
-  {
-    id: 'probono',
-    title: 'ProBonoBuddy',
-    concept: 'Platform connecting professionals with non-profits.',
-    focus: 'Leveraging expertise for social impact.',
-    className: 'project-probono'
-  }
-]
-
 // Project tile component
-function ProjectTile({ project, index }: { project: Project, index: number }) {
+function ProjectTile({ project, index, language }: { 
+  project: Project, 
+  index: number,
+  language: 'en' | 'sv'
+}) {
   const [showDetails, setShowDetails] = useState(false)
 
   const handleClick = () => {
@@ -139,19 +265,21 @@ function ProjectTile({ project, index }: { project: Project, index: number }) {
       <div className="h-full flex flex-col justify-between">
         <div>
           <h3 className="text-xl md:text-2xl font-bold mb-4 text-foreground">
-            {showDetails && project.id === 'guldklockan' ? 'Guldklockan 2.0 📖' : project.title}
+            {showDetails && project.id === 'guldklockan' && project.expandedTitle 
+              ? project.expandedTitle 
+              : project.title}
           </h3>
           <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
-            {showDetails && project.id === 'guldklockan' 
-              ? 'Guldklockan 2.0 är den första svenska guiden som hjälper dig som är över 50 att ta kontroll över din framtid med hjälp av AI. Oavsett om du vill skriva, skapa digitala produkter, starta en plattform eller använda AI som din personliga assistent – här får du praktiska steg för steg-instruktioner, smarta strategier och konkreta verktyg som fungerar i verkligheten.'
+            {showDetails && project.id === 'guldklockan' && project.expandedConcept
+              ? project.expandedConcept
               : project.concept
             }
           </p>
         </div>
         <div>
           <p className="text-primary text-xs md:text-sm font-mono uppercase tracking-wider leading-relaxed">
-            {showDetails && project.id === 'guldklockan'
-              ? 'Den här boken är skriven på svenska, med fokus på tydlighet och enkelhet, utan krånglig teknisk jargong. Med exempel och övningar anpassade för dig som vill utvecklas i din egen takt och på dina villkor. Guldklockan 2.0 visar att det aldrig är för sent att börja något nytt. AI är inte bara för experter – det är verktyget som kan frigöra din erfarenhet och göra dig starkare i en digital tidsålder. 👉 Läs mer och ladda ner boken på Gumroad'
+            {showDetails && project.id === 'guldklockan' && project.expandedFocus
+              ? project.expandedFocus
               : project.focus
             }
           </p>
@@ -162,10 +290,29 @@ function ProjectTile({ project, index }: { project: Project, index: number }) {
 }
 
 export default function Home() {
+  const [language, setLanguage] = useState<'en' | 'sv'>('en')
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark')
+
+  // Apply theme to document
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+  }, [theme])
+
+  const t = content[language]
+  const projects = t.projects.items.map((item, index) => ({
+    ...item,
+    className: ['project-agency', 'project-influencer', 'project-football', 'project-unemployed', 'project-probono'][index]
+  }))
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <CustomCursor />
-      <Navigation />
+      <Navigation 
+        language={language} 
+        setLanguage={setLanguage}
+        theme={theme}
+        setTheme={setTheme}
+      />
 
       {/* Hero Section */}
       <section className="section-minimal container-edge">
@@ -192,8 +339,7 @@ export default function Home() {
               className="max-w-2xl"
             >
               <p className="text-lg md:text-xl text-foreground/80 mb-8 md:mb-12 leading-relaxed">
-                Here&apos;s where I publish ideas, examples, thoughts, and projects or collabs I&apos;ve done.
-                I make stuff all the time but usually forget to show people — this site is me trying to fix that.
+                {t.hero.subtitle}
               </p>
             </motion.div>
 
@@ -208,7 +354,7 @@ export default function Home() {
                 className="group flex items-center space-x-3 text-primary hover:text-primary/80 transition-colors duration-300"
               >
                 <span className="text-base md:text-lg font-mono uppercase tracking-wider">
-                  Explore Work
+                  {t.hero.exploreWork}
                 </span>
                 <ArrowRight className="w-4 h-4 md:w-5 md:h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </a>
@@ -243,11 +389,10 @@ export default function Home() {
                 viewport={{ once: true }}
               >
                 <h2 className="text-huge text-foreground mb-6 md:mb-8 accent-line">
-                  If I was
+                  {t.projects.title}
                 </h2>
                 <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                  Conceptual projects and real-world initiatives that showcase 
-                  creative thinking and strategic execution.
+                  {t.projects.subtitle}
                 </p>
               </motion.div>
             </div>
@@ -256,7 +401,12 @@ export default function Home() {
             <div className="lg:col-span-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 {projects.map((project, index) => (
-                  <ProjectTile key={project.id} project={project} index={index} />
+                  <ProjectTile 
+                    key={project.id} 
+                    project={project} 
+                    index={index}
+                    language={language}
+                  />
                 ))}
               </div>
             </div>
@@ -275,13 +425,13 @@ export default function Home() {
               viewport={{ once: true }}
             >
               <h2 className="text-huge mb-6 md:mb-8 accent-line">
-                About
+                {t.about.title}
               </h2>
               <p className="text-lg md:text-xl text-foreground/90 mb-6 md:mb-8 leading-relaxed">
-                I think of stuff, and since I&apos;ve been learning AI technology I&apos;ve also started to build stuff!
+                {t.about.text1}
               </p>
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                Sometimes full projects, sometimes more of a presentation of an idea.
+                {t.about.text2}
               </p>
             </motion.div>
           </div>
@@ -294,15 +444,11 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-center space-y-4 md:space-y-6"
             >
-              <div className="text-primary font-mono text-sm md:text-base uppercase tracking-wider">
-                Strategy
-              </div>
-              <div className="text-primary font-mono text-sm md:text-base uppercase tracking-wider">
-                Creativity
-              </div>
-              <div className="text-primary font-mono text-sm md:text-base uppercase tracking-wider">
-                Technology
-              </div>
+              {t.about.skills.map((skill, index) => (
+                <div key={index} className="text-primary font-mono text-sm md:text-base uppercase tracking-wider">
+                  {skill}
+                </div>
+              ))}
             </motion.div>
           </div>
         </div>
@@ -318,10 +464,10 @@ export default function Home() {
             viewport={{ once: true }}
           >
             <h2 className="text-huge mb-6 md:mb-8">
-              Let&apos;s Connect
+              {t.contact.title}
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground mb-8 md:mb-12">
-              Get in touch if you&apos;d like to collaborate or just say hi.
+              {t.contact.subtitle}
             </p>
             
             <div className="flex flex-wrap justify-center gap-4 md:gap-8">
@@ -329,19 +475,19 @@ export default function Home() {
                 href="mailto:hello@christoffer.com"
                 className="inline-block px-4 py-2 md:px-6 md:py-3 border border-primary text-primary hover:bg-primary hover:text-background transition-colors duration-300 font-mono text-sm md:text-base uppercase tracking-wider"
               >
-                Email
+                {t.contact.email}
               </a>
               <a
                 href="https://linkedin.com/in/christoffer"
                 className="inline-block px-4 py-2 md:px-6 md:py-3 border border-primary text-primary hover:bg-primary hover:text-background transition-colors duration-300 font-mono text-sm md:text-base uppercase tracking-wider"
               >
-                LinkedIn
+                {t.contact.linkedin}
               </a>
               <a
                 href="https://github.com/christoffer"
                 className="inline-block px-4 py-2 md:px-6 md:py-3 border border-primary text-primary hover:bg-primary hover:text-background transition-colors duration-300 font-mono text-sm md:text-base uppercase tracking-wider"
               >
-                GitHub
+                {t.contact.github}
               </a>
             </div>
           </motion.div>
@@ -355,13 +501,11 @@ export default function Home() {
           className="text-center mt-16 md:mt-24"
         >
           <p className="text-xs md:text-sm text-muted-foreground font-mono">
-            © 2024 Christoffer Ankarstrand
+            {t.footer.copyright}
           </p>
         </motion.div>
       </section>
     </div>
   )
 }
-
-
 
