@@ -184,8 +184,9 @@ function Navigation({ language, setLanguage, theme, setTheme }: {
 
   return (
     <>
-      {/* Language toggle - top left */}
-      <div className="fixed top-6 left-6 z-50">
+      {/* Top bar with language and theme controls */}
+      <div className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center p-4 md:p-6">
+        {/* Language toggle - left side */}
         <div className="lang-toggle">
           <button
             onClick={() => setLanguage('en')}
@@ -201,14 +202,12 @@ function Navigation({ language, setLanguage, theme, setTheme }: {
             SV
           </button>
         </div>
-      </div>
 
-      {/* Theme toggle - top right, separate from navigation */}
-      <div className="fixed top-6 right-6 z-50">
+        {/* Theme toggle - right side */}
         <button
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          className="theme-toggle p-3 rounded-full border border-primary/20 hover:border-primary/40 transition-all duration-300 bg-background/80 backdrop-blur-sm"
-          aria-label="Toggle theme"
+          className="theme-toggle-button flex items-center justify-center w-12 h-12 rounded-full border-2 border-primary/30 hover:border-primary/60 transition-all duration-300 bg-background/80 backdrop-blur-sm hover:bg-background/90"
+          aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
         >
           {theme === 'dark' ? (
             <Sun className="w-5 h-5 text-primary" />
@@ -218,7 +217,7 @@ function Navigation({ language, setLanguage, theme, setTheme }: {
         </button>
       </div>
 
-      {/* Main navigation - below theme toggle */}
+      {/* Main navigation - separate positioning */}
       <nav className="nav-minimal">
         <a href="#projects" className="nav-link">{t.nav.projects}</a>
         <a href="#about" className="nav-link">{t.nav.about}</a>
@@ -316,7 +315,7 @@ export default function Home() {
       />
 
       {/* Hero Section */}
-      <section className="section-minimal container-edge">
+      <section className="section-minimal container-edge pt-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
           {/* Left side - Main content */}
           <div className="lg:col-span-8 order-2 lg:order-1">
