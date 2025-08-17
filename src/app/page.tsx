@@ -71,7 +71,15 @@ function Navigation() {
 }
 
 // Project data
-const projects = [
+interface Project {
+  id: string
+  title: string
+  concept: string
+  focus: string
+  className: string
+}
+
+const projects: Project[] = [
   {
     id: 'agency',
     title: 'Marketing Agency',
@@ -110,7 +118,7 @@ const projects = [
 ]
 
 // Project tile component
-function ProjectTile({ project, index }: { project: any, index: number }) {
+function ProjectTile({ project, index }: { project: Project, index: number }) {
   const [showDetails, setShowDetails] = useState(false)
 
   const handleClick = () => {
@@ -184,7 +192,7 @@ export default function Home() {
               className="max-w-2xl"
             >
               <p className="text-lg md:text-xl text-foreground/80 mb-8 md:mb-12 leading-relaxed">
-                Here's where I publish ideas, examples, thoughts, and projects or collabs I've done.
+                Here&apos;s where I publish ideas, examples, thoughts, and projects or collabs I&apos;ve done.
                 I make stuff all the time but usually forget to show people — this site is me trying to fix that.
               </p>
             </motion.div>
@@ -270,7 +278,7 @@ export default function Home() {
                 About
               </h2>
               <p className="text-lg md:text-xl text-foreground/90 mb-6 md:mb-8 leading-relaxed">
-                I think of stuff, and since I've been learning AI technology I've also started to build stuff!
+                I think of stuff, and since I&apos;ve been learning AI technology I&apos;ve also started to build stuff!
               </p>
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
                 Sometimes full projects, sometimes more of a presentation of an idea.
@@ -310,10 +318,10 @@ export default function Home() {
             viewport={{ once: true }}
           >
             <h2 className="text-huge mb-6 md:mb-8">
-              Let's Connect
+              Let&apos;s Connect
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground mb-8 md:mb-12">
-              Get in touch if you'd like to collaborate or just say hi.
+              Get in touch if you&apos;d like to collaborate or just say hi.
             </p>
             
             <div className="flex flex-wrap justify-center gap-4 md:gap-8">
@@ -355,3 +363,6 @@ export default function Home() {
   )
 }
 
+
+
+live
